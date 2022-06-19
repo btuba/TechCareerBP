@@ -8,14 +8,16 @@ namespace LogLib
 {
     public abstract class Logger
     {
-        private string Message { get; set; }
-        private string User { get; set; }
-        private DateTime Date { get; set; }
-        private string LogLevel { get; set; }
-        public abstract void Log(string message, string user, DateTime date, string logLevel
-            ,string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag= "LogLevel"
+        public string Message { get; set; }
+        public string User { get; set; }
+        public DateTime Date { get; set; }
+        public string LogLevel { get; set; }
+
+        public abstract void Log(string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag= "LogLevel"
             ,params string[] arg);
         public abstract void View(Color color = Color.White, FontSize fontSize = FontSize.Medium);
+
+        public abstract bool Accept(Visitor visitor);
     }
 
     public enum Color

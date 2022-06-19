@@ -8,21 +8,17 @@ namespace LogLib
 {
     public class LoggerFactory
     {
-        private string connectionString;
-        private string targetPath;
-        private TargetFormat targetFormat;
-        private DB targetDB;
-        private LogType logType;
+        Settings settings;
 
         public LoggerFactory(string configFile, Format fileFormat)
         {
             switch (fileFormat)
             {
                 case Format.XML:
-                    ReadFromXML();
+                    settings = new XMLSerializer().Serialize(configFile);
                     break;
                 case Format.JSON:
-                    ReadFromJSON();
+                    settings = new JSONSerializer().Serialize(configFile);
                     break;
                 default:
                     throw new Exception();
@@ -30,43 +26,16 @@ namespace LogLib
         }
         public Logger CreateLogger()
         {
-            switch (logType)
+            switch (settings.logType)
             {
                 case LogType.File:
-                    return new FileLogger(targetPath, targetFormat);
+                    return  new FileLoggerBuilder().SetTargetFormat(settings.targetFormat)
+                        .SetTargetPath(settings.targetPath).Create();
                 case LogType.Db:
-                    switch (targetDB)
-                    {
-                        case DB.ORACLE:
-                            return new OracleDBLogger(connectionString);
-                        case DB.MSSQL:
-                            return new MSSqlDBLogger(connectionString);
-                    }
-                    throw new Exception();
+                     return new ConnectableLoggerBuilder().SetConectionString(settings.connectionString)
+                    .SetDb(settings.targetDB).Create();
             }
             throw new Exception();
-        }
-
-        private void ReadFromXML()
-        {
-
-        }
-
-        private void ReadFromJSON()
-        {
-
-        }
-
-        private enum LogType
-        {
-            File,
-            Db
-        }
-
-        private enum DB
-        {
-            ORACLE,
-            MSSQL
         }
     }
 
@@ -74,11 +43,5 @@ namespace LogLib
     {
         XML,
         JSON
-    }
-
-    public enum TargetFormat
-    {
-        HTML,
-        TEXT
     }
 }

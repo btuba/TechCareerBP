@@ -8,21 +8,23 @@ namespace LogLib
 {
     public class MSSqlDBLogger : ConnectableLogger
     {
-        public MSSqlDBLogger(string connectionString)
+        public MSSqlDBLogger()
         {
-            this.connectionString = connectionString;
+            
         }
-        public override void CloseConnection()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Log(string message, string user, DateTime date, string logLevel, string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag = "LogLevel", string[] arg = null)
+        protected override void CloseConnection()
         {
             throw new NotImplementedException();
         }
 
-        public override void OpenConnection()
+        public override void Log(string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag = "LogLevel", string[] arg = null)
+        {
+            OpenConnection();
+            // log
+            CloseConnection();
+        }
+
+        protected override void OpenConnection()
         {
             throw new NotImplementedException();
         }
@@ -30,6 +32,11 @@ namespace LogLib
         public override void View(Color color = Color.White, FontSize fontSize = FontSize.Medium)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Accept(Visitor visitor)
+        {
+            return visitor.Visit(this);
         }
     }
 }

@@ -8,8 +8,8 @@ namespace LogLib
 {
     public abstract class ConnectableLogger : Logger
     {
-        protected string connectionString;
-        public abstract void OpenConnection();
-        public abstract void CloseConnection();
+        internal string connectionString;
+        protected abstract void OpenConnection();
+        protected abstract void CloseConnection();
     }
 }
