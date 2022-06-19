@@ -11,8 +11,20 @@ user.LoadDocument("YENİ");
 user.ChangeDocumentName(document,"Yeni1");
 user.ChangeDocumentName(document, "yeni2");
 user.UndoDocumentName(document);
+
 Console.WriteLine(document.Name);
 
 Report report = Report.Instance;
 
 Console.WriteLine();
+
+/*
+ * factory
+ * singleton
+ * visitor
+ * memento
+ * builder
+ * observer ~
+ * 
+ * decorator?
+ */
