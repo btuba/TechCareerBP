@@ -30,6 +30,6 @@ Console.WriteLine();
  * visitor
  * memento
  * builder
- * observer ~
+ * observer 
  * decorator
  */
