@@ -29,14 +29,14 @@ namespace LogLib
             throw new NotImplementedException();
         }
 
-        public override void View(Color color = Color.White, FontSize fontSize = FontSize.Medium)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool Accept(Visitor visitor)
         {
             return visitor.Visit(this);
+        }
+
+        public override void View()
+        {
+            throw new NotImplementedException();
         }
     }
 }

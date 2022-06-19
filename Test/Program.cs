@@ -4,6 +4,12 @@ using DocumentManagementLib;
 LoggerFactory Factory = new LoggerFactory("config.json", Format.JSON);
 Logger logger = Factory.CreateLogger();
 
+IViewable viewable = logger;
+IViewable colorDecorator = new ColoredLoggerDecorator(viewable).SetColor(Color.Red);
+IViewable sizeDecorator = new SizedLoggerDecorator(viewable).SetFontSize(FontSize.Medium);
+
+logger.View();
+
 Document document = new Document();
 User user = new User("inc", Department.IT,"Susan", logger);
 
@@ -25,6 +31,5 @@ Console.WriteLine();
  * memento
  * builder
  * observer ~
- * 
- * decorator?
+ * decorator
  */
