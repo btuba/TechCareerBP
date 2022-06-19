@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace DocumentManagementLib
 {
-    public class Document
+    public class Document : Observable
     {
         public string Name { get; set; }
         public string Path { get; set; }
 
         private DocumentOrginator DocumentOrginator = new DocumentOrginator();
-        Report Report = Report.Instance;
 
         public bool Create(User user, string name)
         {
@@ -25,9 +24,9 @@ namespace DocumentManagementLib
                 DocumentOrginator.Name = name;
                 DocumentOrginator.Path = Path;
                 DocumentOrginator.Save();
-
-                Report.DocumentCount++;
                 // create document
+                this.AddObserver(Report.Instance);
+                this.NotifyObserver(this);
                 return true;
             }
             catch (Exception)

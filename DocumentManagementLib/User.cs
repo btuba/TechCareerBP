@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 
 namespace DocumentManagementLib
 {
-    public class User
+    public class User : Observable
     {
         public Department department;
         public string CompanyName { get; set; }
         public string Name { get; set; }
         private Logger Logger { get; set; }
 
-        private Report Report = Report.Instance;
-
         public User(string companyName,Department department,string name, Logger logger)
         {
-            Report.UserCount++;
             this.CompanyName = companyName;
             this.department = department;
             this.Name = name;
             this.Logger = logger;
+            this.AddObserver(Report.Instance);
+            this.NotifyObserver(this);
         }
 
         public void LoadDocument(string documentName)
