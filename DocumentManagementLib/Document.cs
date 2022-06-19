@@ -12,19 +12,21 @@ namespace DocumentManagementLib
         public string Name { get; set; }
         public string Path { get; set; }
 
-        public DocumentOrginator DocumentOrginator = new DocumentOrginator();
+        private DocumentOrginator DocumentOrginator = new DocumentOrginator();
+        Report Report = Report.Instance;
 
         public bool Create(User user, string name)
         {
             try
             {
                 Name = name;
-                Path = user.CompanyName + user.department + name;
+                Path = user.CompanyName + user.department;
+
                 DocumentOrginator.Name = name;
-                DocumentOrginator.Path = user.CompanyName + user.department + name;
+                DocumentOrginator.Path = Path;
                 DocumentOrginator.Save();
-                Report report = Report.Instance;
-                report.DocumentCount++;
+
+                Report.DocumentCount++;
                 // create document
                 return true;
             }
@@ -39,9 +41,7 @@ namespace DocumentManagementLib
             try
             {
                 Name = name;
-                Path = Path + name;
                 DocumentOrginator.Name = name;
-                DocumentOrginator.Path = Path + name;
                 DocumentOrginator.Save();
                 return true;
             }
@@ -56,8 +56,8 @@ namespace DocumentManagementLib
             try
             {
                 DocumentOrginator.Undo();
+                DocumentOrginator.Undo();
                 Name = DocumentOrginator.Name;
-                Path = DocumentOrginator.Path;
                 return true;
             }
             catch (Exception)

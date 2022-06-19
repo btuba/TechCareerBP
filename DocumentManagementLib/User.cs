@@ -12,29 +12,38 @@ namespace DocumentManagementLib
         public Department department;
         public string CompanyName { get; set; }
         public string Name { get; set; }
+        private Logger Logger { get; set; }
 
-        Logger Logger { get; set; }
+        private Report Report = Report.Instance;
+
         public User(string companyName,Department department,string name, Logger logger)
         {
-            Report report = Report.Instance;
-            report.UserCount++;
+            Report.UserCount++;
             this.CompanyName = companyName;
             this.department = department;
             this.Name = name;
             this.Logger = logger;
         }
 
-        public void LoadDocument(/*FileStream fileStream,*/ string documentName)
+        public void LoadDocument(string documentName)
         {
             // File operation
             Document document = new Document();
             if(document.Create(this, documentName))
             {
-                Logger.Log("Success", Name, DateTime.Now, "level");
+                Logger.Message = "Success";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log(messageTag: "info");
             }
             else
             {
-                Logger.Log("Error", Name, DateTime.Now, "level");
+                Logger.Message = "Error";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log();
             }
             
         }
@@ -43,15 +52,19 @@ namespace DocumentManagementLib
         {
             if (document.UpdateName(name))
             {
-                Logger.Log(message:"Success Changed Document Name",
-                    user: Name, 
-                    date: DateTime.Now,
-                    logLevel: "level",
-                    arg: document.Name);
+                Logger.Message = "Success - Changed Document Name";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log(arg: document.Name);
             }
             else
             {
-                Logger.Log("Error", Name, DateTime.Now, "level");
+                Logger.Message = "Error - Unchanged Document Name";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log(arg: document.Name);
             }
         }
 
@@ -59,11 +72,19 @@ namespace DocumentManagementLib
         {
             if (document.Undo())
             {
-                Logger.Log("Undo Success", Name, DateTime.Now, "level");
+                Logger.Message = "Success - Undo Document Name";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log(arg: document.Name);
             }
             else
             {
-                Logger.Log("Undo Error", Name, DateTime.Now, "level");
+                Logger.Message = "Error - Undo Document Name";
+                Logger.User = Name;
+                Logger.Date = DateTime.Now;
+                Logger.LogLevel = "0";
+                Logger.Log(arg: document.Name);
             }
         }
     }
