@@ -8,11 +8,11 @@ namespace LogLib
 {
     internal class Settings
     {
-        internal string connectionString { get; set; }
-        internal string targetPath { get; set; }
-        internal TargetFormat targetFormat { get; set; }
-        internal DB targetDB { get; set; }
-        internal LogType logType { get; set; }
+        internal string connectionString { get; set; } = "";
+        internal string targetPath { get; set; } = "";
+        internal TargetFormat targetFormat { get; set; } = TargetFormat.TEXT;
+        internal DB targetDB { get; set; } = DB.ORACLE;
+        internal LogType logType { get; set; } = LogType.File;
     }
     internal enum LogType
     {

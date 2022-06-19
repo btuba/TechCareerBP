@@ -11,7 +11,7 @@ namespace LogLib
         internal string Path { get; set; }
         internal TargetFormat targetFormat;
 
-        public override void Log(string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag = "LogLevel", 
+        public override void Log(string messageTag = "Message", string userTag = "User", string dateTag = "Tag", string logeLevelTag = "LogLevel", 
             params string[] arg)
         {
             Console.WriteLine($"{Message} {User} {Date} {LogLevel}");

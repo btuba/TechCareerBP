@@ -32,8 +32,8 @@ namespace LogLib
                     return  new FileLoggerBuilder().SetTargetFormat(settings.targetFormat)
                         .SetTargetPath(settings.targetPath).Create();
                 case LogType.Db:
-                     return new ConnectableLoggerBuilder().SetConectionString(settings.connectionString)
-                    .SetDb(settings.targetDB).Create();
+                     return new ConnectableLoggerBuilder().SetDb(settings.targetDB)
+                        .SetConectionString(settings.connectionString).Create();
             }
             throw new Exception();
         }

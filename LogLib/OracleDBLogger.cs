@@ -14,10 +14,10 @@ namespace LogLib
         }
         protected override void CloseConnection()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("ORACLE Connection closed.");
         }
 
-        public override void Log(string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag = "LogLevel", string[] arg = null)
+        public override void Log(string messageTag = "Message", string userTag = "User", string dateTag = "Tag", string logeLevelTag = "LogLevel", string[] arg = null)
         {
             OpenConnection();
             // log
@@ -26,7 +26,7 @@ namespace LogLib
 
         protected override void OpenConnection()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("ORACLE Connection opened...");
         }
 
         public override bool Accept(Visitor visitor)
@@ -36,7 +36,7 @@ namespace LogLib
 
         public override void View()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{this.Color} {this.FontSize} {Message} {User} {Date} {LogLevel}");
         }
     }
 }

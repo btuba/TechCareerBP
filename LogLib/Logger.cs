@@ -15,7 +15,7 @@ namespace LogLib
         public Color Color { get; set; }
         public FontSize FontSize { get; set; }
 
-        public abstract void Log(string messageTag = "Message", string userTag = "User", string dataTag = "Tag", string logeLevelTag= "LogLevel"
+        public abstract void Log(string messageTag = "Message", string userTag = "User", string dateTag = "Tag", string logeLevelTag= "LogLevel"
             ,params string[] arg);
 
         public abstract bool Accept(Visitor visitor);
